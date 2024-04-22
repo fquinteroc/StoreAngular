@@ -1,10 +1,23 @@
-<div class="container mx-auto">
-    <app-header  />
-    <div class="grid grid-cols-4 gap-8 mt-5">
-        <app-product 
-            *ngFor= "let product of products()"
-            [product]="product" 
-            (addToCart)="addToCart($event)"/>
+<div class="flex space-x-4  mt-5">
+    <div class="w-56">
+        <h2 class="font-bold text-center mb-3">Categorías</h2>
+        <ul>
+            <li style="border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 5px;">
+                <a routerLink="/">All</a>
+            </li>
+            @for (category of categories(); track category) {
+                <li style="border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 5px;">
+                    <a routerLink="/" [queryParams]="{category_id: category.id}">{{ category.name }}</a>
+                </li>
+            }
+        </ul>
     </div>
-
+    
+    <div class="grid grid-cols-4 gap-8 w-full">
+        @for (product of products(); track product) {
+            <app-product
+            [product]="product"
+            (addToCart)="addToCart($event)" />
+        }
+    </div>
 </div>
